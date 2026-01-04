@@ -7,7 +7,9 @@ namespace SignalR.DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=bugra;database=SignalRDb;integrated security=true;");
+            optionsBuilder.UseSqlServer(
+                "Server=bugra;Database=SignalRDb;Integrated Security=True;TrustServerCertificate=True;"
+            );
         }
 
 
