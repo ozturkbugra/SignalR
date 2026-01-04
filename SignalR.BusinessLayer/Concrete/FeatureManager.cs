@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SignalR.BusinessLayer.Concrete
 {
-    public class FeatureManager : IFeautureService
+    public class FeatureManager : IFeatureService
     {
         private readonly IFeatureDal _featureDal;
 
