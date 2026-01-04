@@ -8,10 +8,19 @@ using SignalRApi.Mapping;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// AutoMapper Konfigürasyonu
 builder.Services.AddAutoMapper(typeof(AboutMapping));
+
+// Database Context
 builder.Services.AddDbContext<SignalRContext>();
+
+// Dependency Injection
 builder.Services.AddScoped<IAboutService, AboutManager>();
 builder.Services.AddScoped<IAboutDal, EfAboutDal>();
+
+builder.Services.AddScoped<IBookingService, BookingManager>();
+builder.Services.AddScoped<IBookingDal, EfBookingDal>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
