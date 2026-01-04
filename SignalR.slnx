@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SignalRApi/SignalRApi.csproj" />
+  <Project Path="SignalRWebUI/SignalRWebUI.csproj" />
+</Solution>
