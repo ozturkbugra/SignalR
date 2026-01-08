@@ -35,7 +35,7 @@ namespace SignalRApi.Controllers
             return Ok("Öne Çıkan Bilgisi eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteFeature(int id)
         {
             var value = _featureService.TGetById(id);
