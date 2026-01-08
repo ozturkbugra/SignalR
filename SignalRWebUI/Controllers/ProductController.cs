@@ -32,6 +32,7 @@ namespace SignalRWebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateProduct()
         {
+            // Kategori verilerini çekip dropdown listeye ekleme
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7171/api/Category");
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -73,6 +74,7 @@ namespace SignalRWebUI.Controllers
 
         public async Task<IActionResult> UpdateProduct(int id)
         {
+            // Kategori verilerini çekip dropdown listeye ekleme
             var client1 = _httpClientFactory.CreateClient();
             var responseMessage1 = await client1.GetAsync("https://localhost:7171/api/Category");
             var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
@@ -85,6 +87,7 @@ namespace SignalRWebUI.Controllers
                                             }).ToList();
             ViewBag.v = values2;
 
+            // Ürün verilerini çekme
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync($"https://localhost:7171/api/Product/{id}");
             if (responseMessage.IsSuccessStatusCode)
