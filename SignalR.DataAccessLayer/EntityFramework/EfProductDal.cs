@@ -20,7 +20,7 @@ namespace SignalR.DataAccessLayer.EntityFramework
         public List<Product> GetProductsWithCategories()
         {
             var context = new SignalRContext();
-            var values = context.Products.Include(x=> x.Category).ToList();
+            var values = context.Products.Include(x => x.Category).ToList();
             return values;
         }
 
@@ -28,6 +28,21 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             using var context = new SignalRContext();
             return context.Products.Count();
+        }
+
+        public int ProductCountByCategoryNameCorba()
+        {
+            using var context = new SignalRContext();
+
+            return context.Products.Count(p => p.Category.CategoryName == "Çorba");
+
+        }
+
+        public int ProductCountByCategoryNameTatli()
+        {
+            using var context = new SignalRContext();
+
+            return context.Products.Count(p => p.Category.CategoryName == "Tatlı");
         }
     }
 }

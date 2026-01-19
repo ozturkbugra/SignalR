@@ -48,6 +48,16 @@ namespace SignalR.BusinessLayer.Concrete
             return _productDal.ProductCount();
         }
 
+        public int TProductCountByCategoryNameCorba()
+        {
+            return _productDal.ProductCountByCategoryNameCorba();
+        }
+
+        public int TProductCountByCategoryNameTatli()
+        {
+            return _productDal.ProductCountByCategoryNameTatli();
+        }
+
         public void TUpdate(Product entity)
         {
             _productDal.Update(entity);
