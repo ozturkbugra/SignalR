@@ -3,11 +3,23 @@ using SignalR.BusinessLayer.Concrete;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
 using SignalR.DataAccessLayer.EntityFramework;
+using SignalRApi.Hubs;
 using SignalRApi.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder.AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .SetIsOriginAllowed((host)=> true)
+                          .AllowCredentials()
+                          );
+});
+
+builder.Services.AddSignalR();
 
 // AutoMapper Konfigürasyonu
 builder.Services.AddAutoMapper(typeof(AboutMapping));
@@ -56,11 +68,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<SignalRHub>("/signalRHub");
 
 app.Run();

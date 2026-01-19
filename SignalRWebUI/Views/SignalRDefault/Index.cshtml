@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+
+}
+
+<h1>Index</h1>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("https://localhost:7171/SignalRHub")
+                .build();
+
+            $("#connstatus").text(connection.state);
+
+            connection.start()
+                .then(function () {
+                    $("#connstatus").text(connection.state);
+                })
+                .catch(function (err) {
+                    console.error(err.toString());
+                });
+
+        });
+    </script>
+
+
+
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="alert alert-success">
+            Bağlantı Durumu:<strong id="connstatus"></strong>
+        </div>
+    </div>
+</div>
