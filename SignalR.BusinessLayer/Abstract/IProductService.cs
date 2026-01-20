@@ -15,5 +15,10 @@ namespace SignalR.BusinessLayer.Abstract
 
         public int TProductCountByCategoryNameCorba();
         public int TProductCountByCategoryNameTatli();
+
+        public decimal TProductPriceAvg();
+
+        public string TProductNameByMaxPrice();
+        public string TProductNameByMinPrice();
     }
 }
