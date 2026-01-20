@@ -23,6 +23,11 @@ namespace SignalR.BusinessLayer.Concrete
             _productDal.Add(entity);
         }
 
+        public decimal TAvgPriceByCorba()
+        {
+          return _productDal.AvgPriceByCorba();
+        }
+
         public void TDelete(Product entity)
         {
             _productDal.Delete(entity);
