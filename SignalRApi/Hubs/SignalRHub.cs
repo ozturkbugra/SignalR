@@ -16,28 +16,21 @@ namespace SignalRApi.Hubs
             _productService = productService;
         }
 
-        public async Task SendCategoryCount()
+        public async Task SendStatistic()
         {
             var count = _categoryService.TCategoryCount();
             await Clients.All.SendAsync("ReceiveCategoryCount", count);
+
+            var count2 = _productService.TProductCount();
+            await Clients.All.SendAsync("ReceiveProductCount", count2);
+
+            var count3 = _categoryService.TActiveCategoryCount();
+            await Clients.All.SendAsync("ReceiveActiveCategoryCount", count3);
+
+            var count4 = _categoryService.TPassiveCategoryCount();
+            await Clients.All.SendAsync("ReceivePassiveCategoryCount", count4);
         }
 
-        public async Task SendProductCount()
-        {
-            var count = _productService.TProductCount();
-            await Clients.All.SendAsync("ReceiveProductCount", count);
-        }
-
-        public async Task ActiveCategoryCount()
-        {
-            var count = _categoryService.TActiveCategoryCount();
-            await Clients.All.SendAsync("ReceiveActiveCategoryCount", count);
-        }
-
-        public async Task PassiveCategoryCount()
-        {
-            var count = _categoryService.TPassiveCategoryCount();
-            await Clients.All.SendAsync("ReceivePassiveCategoryCount", count);
-        }
+        
     }
 }

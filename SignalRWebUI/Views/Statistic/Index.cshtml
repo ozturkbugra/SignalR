@@ -26,10 +26,8 @@
                         $("#connstatus").text(connection.state);
                         setInterval(()=> {
                             
-                            connection.invoke("SendCategoryCount");
-                            connection.invoke("SendProductCount");
-                            connection.invoke("ActiveCategoryCount");
-                            connection.invoke("PassiveCategoryCount");
+                            connection.invoke("SendStatistic");
+                           
 
                         }, 1000);
                     })
