@@ -50,6 +50,46 @@
                     connection.on("ReceivePassiveCategoryCount", function (count) {
                         $("#passiveProduct").text(count);
                     });
+
+                    connection.on("ReceiveProductCountByCategoryNameCorba", function (count) {
+                        $("#corba").text(count);
+                    });
+
+                    connection.on("ReceiveProductCountByCategoryNameTatli", function (count) {
+                        $("#tatli").text(count);
+                    });
+                    
+                    connection.on("ReceiveProductPriceAvg", function (count) {
+                        $("#productPriceAvg").text(count);
+                    });
+
+                    connection.on("ReceiveProductNameByMaxPrice", function (count) {
+                        $("#productNameByMaxPrice").text(count);
+                    });
+                    connection.on("ReceiveProductNameByMinPrice", function (count) {
+                        $("#productNameByMinPrice").text(count);
+                    });
+                    connection.on("ReceiveAvgPriceByCorba", function (count) {
+                        $("#avgPriceByCorba").text(count);
+                    });
+                    connection.on("ReceiveTotalOrderCount", function (count) {
+                        $("#totalOrderCount").text(count);
+                    });
+                    connection.on("ReceiveActiveOrderCount", function (count) {
+                        $("#activeOrderCount").text(count);
+                    });
+                    connection.on("ReceiveLastOrderPrice", function (count) {
+                        $("#lastOrderPrice").text(count);
+                    });
+                    connection.on("ReceiveTotalMoneyCaseAmount", function (count) {
+                        $("#totalMoneyCaseAmount").text(count);
+                    });
+                    connection.on("ReceiveTodayTotalPrice", function (count) {
+                        $("#todayTotalPrice").text(count);
+                    });
+                    connection.on("ReceiveMenuTableCount", function (count) {
+                        $("#menuTableCount").text(count);
+                    });
             });
         </script>
 
@@ -147,8 +187,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">Çorba Kategorisi Ürün Sayısı</p>
+                                    <h4 class="card-title" id="corba"></h4>
                                 </div>
                             </div>
                         </div>
@@ -166,8 +206,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Tatlı Kategorisi Ürün Sayısı</p>
+                                    <h4 class="card-title" id="tatli"></h4>
                                 </div>
                             </div>
                         </div>
@@ -185,8 +225,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">Ortalama Fiyat</p>
+                                    <h4 class="card-title" id="productPriceAvg"></h4>
                                 </div>
                             </div>
                         </div>
@@ -204,8 +244,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">En Pahalı Ürün</p>
+                                    <h4 class="card-title" id="productNameByMaxPrice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -226,8 +266,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">En uygun ürün</p>
+                                    <h4 class="card-title" id="productNameByMinPrice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -245,8 +285,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Ortalama Çorba Ücreti</p>
+                                    <h4 class="card-title" id="avgPriceByCorba"></h4>
                                 </div>
                             </div>
                         </div>
@@ -264,8 +304,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">Toplam Sipariş</p>
+                                    <h4 class="card-title" id="totalOrderCount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -283,8 +323,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">Aktif Sipariş Sayısı</p>
+                                    <h4 class="card-title" id="activeOrderCount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -306,8 +346,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">Son Sipariş Fiyatı</p>
+                                    <h4 class="card-title" id="lastOrderPrice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -325,8 +365,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Kasadaki Tutar</p>
+                                    <h4 class="card-title" id="totalMoneyCaseAmount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -344,8 +384,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">Bugünkü Kazanç</p>
+                                    <h4 class="card-title" id="todayTotalPrice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -363,8 +403,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">Masa Sayısı</p>
+                                    <h4 class="card-title" id="menuTableCount"></h4>
                                 </div>
                             </div>
                         </div>

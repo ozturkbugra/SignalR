@@ -9,11 +9,18 @@ namespace SignalRApi.Hubs
 
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
+        private readonly IOrderService _orderService;
+        private readonly IMoneyCaseService _moneyCaseService;
+        private readonly IMenuTableService _menuTableService;
 
-        public SignalRHub(ICategoryService categoryService, IProductService productService)
+
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService)
         {
             _categoryService = categoryService;
             _productService = productService;
+            _orderService = orderService;
+            _moneyCaseService = moneyCaseService;
+            _menuTableService = menuTableService;
         }
 
         public async Task SendStatistic()
@@ -29,8 +36,47 @@ namespace SignalRApi.Hubs
 
             var count4 = _categoryService.TPassiveCategoryCount();
             await Clients.All.SendAsync("ReceivePassiveCategoryCount", count4);
+
+            var count5 = _productService.TProductCountByCategoryNameCorba();
+            await Clients.All.SendAsync("ReceiveProductCountByCategoryNameCorba", count5);
+
+            var count6 = _productService.TProductCountByCategoryNameTatli();
+            await Clients.All.SendAsync("ReceiveProductCountByCategoryNameTatli", count6);
+
+            var count7 = _productService.TProductPriceAvg();
+            await Clients.All.SendAsync("ReceiveProductPriceAvg", count7.ToString("N2") + " ₺");
+
+            var count8 = _productService.TProductNameByMaxPrice();
+            await Clients.All.SendAsync("ReceiveProductNameByMaxPrice", count8);
+
+            var count9 = _productService.TProductNameByMinPrice();
+            await Clients.All.SendAsync("ReceiveProductNameByMinPrice", count9);
+
+            var count10 = _productService.TAvgPriceByCorba();
+            await Clients.All.SendAsync("ReceiveAvgPriceByCorba", count10.ToString("N2") + " ₺");
+
+            var count11 = _orderService.TTotalOrderCount();
+            await Clients.All.SendAsync("ReceiveTotalOrderCount", count11.ToString("N0"));
+
+            var count12 = _orderService.TActiveOrderCount();
+            await Clients.All.SendAsync("ReceiveActiveOrderCount", count12.ToString("N0"));
+
+            var count13 = _orderService.TLastOrderPrice();
+            await Clients.All.SendAsync("ReceiveLastOrderPrice", count13.ToString("N2") + " ₺");
+
+            var count14 = _moneyCaseService.TTotalMoneyCaseAmount();
+            await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", count14.ToString("N2") + " ₺");
+            
+            var count15 = _orderService.TTodayTotalPrice();
+            await Clients.All.SendAsync("ReceiveTodayTotalPrice", count15.ToString("N2") + " ₺");
+        
+            var count16 = _menuTableService.TMenuTableCount();
+            await Clients.All.SendAsync("ReceiveMenuTableCount", count16.ToString("N0"));
+        
+        
+        
         }
 
-        
+
     }
 }
