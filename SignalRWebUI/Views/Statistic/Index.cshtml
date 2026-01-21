@@ -27,6 +27,7 @@
                         setInterval(()=> {
                             
                             connection.invoke("SendCategoryCount");
+                            connection.invoke("SendProductCount");
 
                         }, 1000);
                     })
@@ -37,12 +38,16 @@
                     connection.on("ReceiveCategoryCount", function (count) {
                         $("#categoryCount").text(count);
                     });
+
+                    connection.on("ReceiveProductCount", function (count) {
+                        $("#productCount").text(count);
+                    });
             });
         </script>
 
 
 
-        <h4 class="page-title">Dashboard</h4>
+        <h4 class="page-title">Anlık İstatistik Sayfası</h4>
         <div class="row">
             <div class="col-md-3">
                 <div class="card card-stats card-warning">
@@ -50,12 +55,12 @@
                         <div class="row">
                             <div class="col-5">
                                 <div class="icon-big text-center">
-                                    <i class="la la-users"></i>
+                                    <i class="la la-certificate"></i>
                                 </div>
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
+                                    <p class="card-category">Kategori Sayısı</p>
                                     <h4 class="card-title" id="categoryCount"></h4>
                                 </div>
                             </div>
@@ -69,13 +74,13 @@
                         <div class="row">
                             <div class="col-5">
                                 <div class="icon-big text-center">
-                                    <i class="la la-bar-chart"></i>
+                                    <i class="la la-shopping-cart"></i>
                                 </div>
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Ürün Sayısı</p>
+                                    <h4 class="card-title" id="productCount"></h4>
                                 </div>
                             </div>
                         </div>
