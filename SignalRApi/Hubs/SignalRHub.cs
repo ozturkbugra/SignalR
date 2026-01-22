@@ -77,6 +77,18 @@ namespace SignalRApi.Hubs
         
         }
 
+        public async Task SendProgress()
+        {
+            var count = _moneyCaseService.TTotalMoneyCaseAmount();
+            await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", count.ToString("N2") + " ₺");
+
+            var count12 = _orderService.TActiveOrderCount();
+            await Clients.All.SendAsync("ReceiveActiveOrderCount", count12.ToString("N0"));
+
+            var count16 = _menuTableService.TMenuTableCount();
+            await Clients.All.SendAsync("ReceiveMenuTableCount", count16.ToString("N0"));
+
+        }
 
     }
 }
