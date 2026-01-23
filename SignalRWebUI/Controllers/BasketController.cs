@@ -17,7 +17,7 @@ namespace SignalRWebUI.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responeMessage = await client.GetAsync("https://localhost:7171/api/Basket/GetBasketByMenuTableNumber");
+            var responeMessage = await client.GetAsync("https://localhost:7171/api/Basket/GetBasketByMenuTableNumber/1");
             if (responeMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responeMessage.Content.ReadAsStringAsync();
