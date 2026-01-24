@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.DtoLayer.BasketDto;
 using SignalR.DtoLayer.ProductDto;
+using SignalR.EntityLayer.Entities;
 
 namespace SignalRApi.Controllers
 {
@@ -26,13 +27,12 @@ namespace SignalRApi.Controllers
             return Ok(value);
         }
 
-
-
-        /*[HttpGet("BasketListByMenuTableWithProductName/{id}")]
-        public IActionResult BasketListByMenuTableWithProductName(int id)
+        [HttpPost]
+        public IActionResult CreateBasket(CreateBasketDto createBasketDto)
         {
-            var values = _basketService.TBasketListByMenuTableWithProductName(id);
-            return Ok(values);
-        }*/
+            var basket = _mapper.Map<Basket>(createBasketDto);
+            _basketService.TAdd(basket);
+            return Ok("Sepete Ürün Eklendi kısmı eklendi");
+        }
     }
 }
