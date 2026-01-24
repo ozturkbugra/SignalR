@@ -21,7 +21,7 @@ namespace SignalRWebUI.Controllers
             if (responeMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responeMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultBasketDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultBasketWithProductAndTable>>(jsonData);
                 return View(values);
             }
             return View();
