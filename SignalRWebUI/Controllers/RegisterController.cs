@@ -30,7 +30,8 @@ namespace SignalRWebUI.Controllers
             };
 
             var result = await _userManager.CreateAsync(appUser, registerDto.Password);
-            if (result.Succeeded) {
+            if (result.Succeeded)
+            {
 
                 return RedirectToAction("Index", "Login");
             }
