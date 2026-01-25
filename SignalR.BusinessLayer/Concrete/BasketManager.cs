@@ -1,4 +1,5 @@
-﻿using SignalR.BusinessLayer.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using SignalR.BusinessLayer.Abstract;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
 using SignalR.EntityLayer.Entities;
@@ -23,15 +24,31 @@ namespace SignalR.BusinessLayer.Concrete
 
         public void TAdd(Basket entity)
         {
-            var product = _productService.TGetById(entity.ProductID);
+            int menuTableId = 1;
 
-            entity.MenuTableID = 1;
-            entity.Count = 1;
-            entity.Price = product.Price;
-            entity.TotalPrice = product.Price * entity.Count;
+            
+            var basket = _basketDal.GetBasketByProductAndTable(entity.ProductID, menuTableId);
 
-            _basketDal.Add(entity);
+            if (basket != null)
+            {
+                basket.Count += 1;
+                basket.TotalPrice = basket.Price * basket.Count;
+
+                _basketDal.Update(basket);
+            }
+            else
+            {
+                var product = _productService.TGetById(entity.ProductID);
+
+                entity.MenuTableID = menuTableId;
+                entity.Count = 1;
+                entity.Price = product.Price;
+                entity.TotalPrice = product.Price;
+
+                _basketDal.Add(entity);
+            }
         }
+
 
 
         public void TDelete(Basket entity)
@@ -42,6 +59,11 @@ namespace SignalR.BusinessLayer.Concrete
         public List<Basket> TGetBasketByMenuTableNumber(int id)
         {
             return _basketDal.GetBasketByMenuTableNumber(id);
+        }
+
+        public Basket TGetBasketByProductAndTable(int productId, int menuTableId)
+        {
+            throw new NotImplementedException();
         }
 
         public Basket TGetById(int id)
@@ -56,7 +78,7 @@ namespace SignalR.BusinessLayer.Concrete
 
         public void TUpdate(Basket entity)
         {
-            throw new NotImplementedException();
+            _basketDal.Update(entity);
         }
     }
 }

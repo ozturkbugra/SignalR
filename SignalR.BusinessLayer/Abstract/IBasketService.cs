@@ -10,5 +10,8 @@ namespace SignalR.BusinessLayer.Abstract
     public interface IBasketService:IGenericService<Basket>
     {
         List<Basket> TGetBasketByMenuTableNumber(int id);
+
+        Basket TGetBasketByProductAndTable(int productId, int menuTableId);
+
     }
 }

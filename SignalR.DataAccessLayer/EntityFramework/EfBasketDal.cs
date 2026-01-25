@@ -19,13 +19,18 @@ namespace SignalR.DataAccessLayer.EntityFramework
         {
             _context = context; // Constructor'dan gelen context'i yerel değişkene atıyoruz
         }
-       
+
 
         public List<Basket> GetBasketByMenuTableNumber(int id)
         {
-            
-            var values = _context.Baskets.Where(b => b.MenuTableID == id).Include(x=> x.Product).Include(x=> x.MenuTable).ToList();
+
+            var values = _context.Baskets.Where(b => b.MenuTableID == id).Include(x => x.Product).Include(x => x.MenuTable).ToList();
             return values;
+        }
+
+        public Basket GetBasketByProductAndTable(int productId, int menuTableId)
+        {
+            return _context.Baskets.FirstOrDefault(x => x.ProductID == productId && x.MenuTableID == menuTableId);
         }
     }
 }
