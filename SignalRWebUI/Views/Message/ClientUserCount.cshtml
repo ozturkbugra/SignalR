@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<div class="content">
+    <div class="container-fluid">
+
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+        <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+
+        <script>
+
+            $(document).ready(function () {
+
+                const connection = new signalR.HubConnectionBuilder()
+                    .withUrl("https://localhost:7171/SignalRHub")
+                    .build();
+
+                $("#connstatus").text(connection.state);
+
+                connection.start()
+                    .then(function () {
+                        $("#connstatus").text(connection.state);
+                        
+                    })
+                    .catch(function (err) {
+                        console.error(err.toString());
+                    });
+
+                    connection.on("ReceiveClientCount", function (count) {
+                         $("#clientCount").text(count);
+                    });
+            });
+        </script>
+
+
+
+        <h4 class="page-title">Anlık Client Sayfası</h4>
+        <br />
+        <h3 id="clientCount"></h3>
+     
+    </div>
+</div>
