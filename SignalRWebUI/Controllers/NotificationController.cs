@@ -33,6 +33,8 @@ namespace SignalRWebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNotification(CreateNotificationDto createNotificationDto)
         {
+            createNotificationDto.Status = false;
+            createNotificationDto.Date = DateTime.Now;
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createNotificationDto);
             StringContent stringContent = new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json");

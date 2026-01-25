@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
-using SignalR.DtoLayer.AboutDto;
+using SignalR.DtoLayer.NotificationDto;
 using SignalR.DtoLayer.NotificationDto;
 using SignalR.EntityLayer.Entities;
 
@@ -55,7 +55,7 @@ namespace SignalRApi.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateAbout(UpdateNotificationDto updateNotificationDto)
+        public IActionResult UpdateNotification(UpdateNotificationDto updateNotificationDto)
         {
             var value = _mapper.Map<Notification>(updateNotificationDto);
             _notificationService.TUpdate(value);
@@ -64,7 +64,7 @@ namespace SignalRApi.Controllers
 
 
         [HttpGet("{id}")]
-        public IActionResult GetAbout(int id)
+        public IActionResult GetNotification(int id)
         {
             var value = _notificationService.TGetById(id);
             var result = _mapper.Map<GetNotificationDto>(value);
