@@ -15,6 +15,7 @@ namespace SignalRApi.Hubs
         private readonly IBookingService _bookingService;
         private readonly INotificationService _notificationService;
 
+        int clientcount = 0;
         public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService, IBookingService bookingService, INotificationService notificationService)
         {
             _categoryService = categoryService;
@@ -122,5 +123,18 @@ namespace SignalRApi.Hubs
 
         }
 
+        public override async Task OnConnectedAsync()
+        {
+            clientcount++;
+            await Clients.All.SendAsync("ReceiveClientCount",clientcount);
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            clientcount--;
+            await Clients.All.SendAsync("ReceiveClientCount", clientcount);
+            await base.OnDisconnectedAsync(exception);
+        }
     }
 }
