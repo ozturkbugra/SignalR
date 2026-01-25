@@ -1,144 +1,165 @@
 ﻿<div class="main-header">
-	<div class="logo-header">
-		<a href="index.html" class="logo">
-			SignalR Admin
-		</a>
-		<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
-	</div>
-	<nav class="navbar navbar-header navbar-expand-lg">
-		<div class="container-fluid">
+    <div class="logo-header">
+        <a href="index.html" class="logo">
+            SignalR Admin
+        </a>
+        <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+    </div>
+    <nav class="navbar navbar-header navbar-expand-lg">
+        <div class="container-fluid">
 
-			<form class="navbar-left navbar-form nav-search mr-md-3" action="">
-				<div class="input-group">
-					<input type="text" placeholder="Aranacak Kelime" class="form-control">
-					<div class="input-group-append">
-						<span class="input-group-text">
-							<i class="la la-search search-icon"></i>
-						</span>
-					</div>
-				</div>
-			</form>
-			<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-				<li class="nav-item dropdown hidden-caret">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="la la-envelope"></i>
-					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">Gelen Mesajlar</a>
-						<a class="dropdown-item" href="#">Rezervasyonlar</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">İletişim</a>
-					</div>
-				</li>
+            <form class="navbar-left navbar-form nav-search mr-md-3" action="">
+                <div class="input-group">
+                    <input type="text" placeholder="Aranacak Kelime" class="form-control">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="la la-search search-icon"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                <li class="nav-item dropdown hidden-caret">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="la la-envelope"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Gelen Mesajlar</a>
+                        <a class="dropdown-item" href="#">Rezervasyonlar</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">İletişim</a>
+                    </div>
+                </li>
 
-				<script src="~/lib/jquery/dist/jquery.min.js"></script>
+                <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-				<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
-
-
-				<script>
-
-					$(document).ready(function () {
-
-						const connection = new signalR.HubConnectionBuilder()
-							.withUrl("https://localhost:7171/SignalRHub")
-							.build();
-
-						$("#connstatus").text(connection.state);
-
-						connection.start()
-							.then(function () {
-								$("#connstatus").text(connection.state);
-								setInterval(()=> {
-
-									connection.invoke("SendNotification");
+                <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
 
 
-								}, 1000);
-							})
-							.catch(function (err) {
-								console.error(err.toString());
-							});
+                <script>
 
-							connection.on("ReceiveNotificationCountByFalse", function (count) {
-								$("#notificationCount").text(count);
-							});
-					});
-				</script>
+                     function timeAgo(dateString) {
+                        const now = new Date();
+                        const date = new Date(dateString);
+                        const diffMs = now - date;
 
-				<li class="nav-item dropdown hidden-caret">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="la la-bell"></i>
-						<span class="notification" id="notificationCount"></span>
-					</a>
-					<ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
-						<li>
-							<div class="dropdown-title">4 Yeni Bildirim</div>
-						</li>
-						<li>
-							<div class="notif-center">
-								<a href="#">
-									<div class="notif-icon notif-primary"> <i class="la la-user-plus"></i> </div>
-									<div class="notif-content">
-										<span class="block">
-											New user registered
-										</span>
-										<span class="time">5 minutes ago</span>
-									</div>
-								</a>
-								<a href="#">
-									<div class="notif-icon notif-success"> <i class="la la-comment"></i> </div>
-									<div class="notif-content">
-										<span class="block">
-											Rahmad commented on Admin
-										</span>
-										<span class="time">12 minutes ago</span>
-									</div>
-								</a>
-							
-								<a href="#">
-									<div class="notif-icon notif-danger"> <i class="la la-heart"></i> </div>
-									<div class="notif-content">
-										<span class="block">
-											Farrah liked Admin
-										</span>
-										<span class="time">17 minutes ago</span>
-									</div>
-								</a>
-							</div>
-						</li>
-						<li>
-							<a class="see-all" href="javascript:void(0);"> <strong>See all notifications</strong> <i class="la la-angle-right"></i> </a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="~/Admin/assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span>Hizrian</span></span> </a>
-					<ul class="dropdown-menu dropdown-user">
-						<li>
-							<div class="user-box">
-								<div class="u-img"><img src="~/Admin/assets/img/profile.jpg" alt="user"></div>
-								<div class="u-text">
-									<h4>Hizrian</h4>
-									<p class="text-muted">hellothemekita.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Menüyü Gör</a>
-								</div>
-							</div>
-						</li>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#"><i class="ti-user"></i> Menü</a>
-						<a class="dropdown-item" href="#"></i> Ayarlar</a>
-						<a class="dropdown-item" href="#"><i class="ti-email"></i> Rezervasyonlar</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#"><i class="ti-settings"></i> Dashboard </a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#"><i class="fa fa-power-off"></i> Çıkış Yap</a>
-					</ul>
-					<!-- /.dropdown-user -->
-				</li>
-			</ul>
-		</div>
-	</nav>
+                        const diffSeconds = Math.floor(diffMs / 1000);
+                        const diffMinutes = Math.floor(diffSeconds / 60);
+                        const diffHours = Math.floor(diffMinutes / 60);
+                        const diffDays = Math.floor(diffHours / 24);
+
+                        if (diffSeconds < 60)
+                            return `${diffSeconds} saniye önce`;
+                        if (diffMinutes < 60)
+                            return `${diffMinutes} dakika önce`;
+                        if (diffHours < 24)
+                            return `${diffHours} saat önce`;
+                        if (diffDays < 7)
+                            return `${diffDays} gün önce`;
+
+                        // 1 haftadan eskiyse normal tarih
+                        return date.toLocaleDateString("tr-TR");
+                    }
+
+
+                    $(document).ready(function () {
+
+                        const connection = new signalR.HubConnectionBuilder()
+                            .withUrl("https://localhost:7171/SignalRHub")
+                            .build();
+
+                        $("#connstatus").text(connection.state);
+
+                        connection.start()
+                            .then(function () {
+                                $("#connstatus").text(connection.state);
+                                setInterval(()=> {
+
+                                    connection.invoke("SendNotification");
+
+
+                                }, 5000);
+                            })
+                            .catch(function (err) {
+                                console.error(err.toString());
+                            });
+
+                            connection.on("ReceiveNotificationCountByFalse", function (count) {
+                                $("#notificationCount").text(count);
+                            });
+                    connection.on("ReceiveNotificationListByFalse", function (value) {
+
+                        $("#notificationList").empty();
+
+                        for (var i = 0; i < value.length; i++) {
+
+                            const timeText = timeAgo(value[i].date);
+
+                            $("#notificationList").append(`
+                                <a href="#">
+                                    <div class="${value[i].type}">
+                                        <i class="${value[i].icon}"></i>
+                                    </div>
+                                    <div class="notif-content">
+                                        <span class="block">
+                                            ${value[i].description}
+                                        </span>
+                                        <span class="time">${timeText}</span>
+                                    </div>
+                                </a>
+                            `);
+                        }
+                    });
+
+                    });
+                </script>
+
+                <li class="nav-item dropdown hidden-caret">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="la la-bell"></i>
+                        <span class="notification" id="notificationCount"></span>
+                    </a>
+                    <ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
+                        <li>
+                            <div class="dropdown-title">Yeni Bildirimleriniz Var</div>
+                        </li>
+                        <li>
+                            <div class="notif-center">
+                                <div id="notificationList"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="see-all" href="javascript:void(0);"> <strong>See all notifications</strong> <i class="la la-angle-right"></i> </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="~/Admin/assets/img/profile.jpg" alt="user-img" width="36" class="img-circle"><span>Hizrian</span></span> </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <div class="user-box">
+                                <div class="u-img"><img src="~/Admin/assets/img/profile.jpg" alt="user"></div>
+                                <div class="u-text">
+                                    <h4>Hizrian</h4>
+                                    <p class="text-muted">hellothemekita.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">Menüyü Gör</a>
+                                </div>
+                            </div>
+                        </li>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="ti-user"></i> Menü</a>
+                        <a class="dropdown-item" href="#"></i> Ayarlar</a>
+                        <a class="dropdown-item" href="#"><i class="ti-email"></i> Rezervasyonlar</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="ti-settings"></i> Dashboard </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="fa fa-power-off"></i> Çıkış Yap</a>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+            </ul>
+        </div>
+    </nav>
 </div>
