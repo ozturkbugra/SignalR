@@ -1,5 +1,6 @@
 ﻿using SignalR.BusinessLayer.Abstract;
 using SignalR.DataAccessLayer.Abstract;
+using SignalR.DataAccessLayer.Concrete;
 using SignalR.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,26 @@ namespace SignalR.BusinessLayer.Concrete
     public class BasketManager : IBasketService
     {
         private readonly IBasketDal _basketDal;
+        private readonly IProductService _productService;
 
-        public BasketManager(IBasketDal basketDal)
+        public BasketManager(IBasketDal basketDal, IProductService productService)
         {
             _basketDal = basketDal;
+            _productService = productService;
         }
 
         public void TAdd(Basket entity)
         {
-           _basketDal.Add(entity);
+            var product = _productService.TGetById(entity.ProductID);
+
+            entity.MenuTableID = 1;
+            entity.Count = 1;
+            entity.Price = product.Price;
+            entity.TotalPrice = product.Price * entity.Count;
+
+            _basketDal.Add(entity);
         }
+
 
         public void TDelete(Basket entity)
         {
