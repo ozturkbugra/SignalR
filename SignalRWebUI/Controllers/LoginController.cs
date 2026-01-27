@@ -37,5 +37,12 @@ namespace SignalRWebUI.Controllers
             ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı");
             return View();
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index");
+        }
     }
 }
