@@ -7,6 +7,13 @@ namespace SignalRWebUI.Controllers
 {
     public class QrCodeController : Controller
     {
+
+        public IActionResult Index()
+        {
+            return View(); 
+        }
+
+        [HttpPost]
         public IActionResult Index(string value)
         {
             using (MemoryStream ms = new MemoryStream())
@@ -17,7 +24,7 @@ namespace SignalRWebUI.Controllers
                 {
                     image.Save(ms, ImageFormat.Png);
 
-                    ViewBag.QrCode = "data:image/png;base64"+ Convert.ToBase64String(ms.ToArray());
+                    ViewBag.QrCode = "data:image/png;base64,"+ Convert.ToBase64String(ms.ToArray());
 
                 }
             }
