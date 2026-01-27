@@ -12,44 +12,44 @@ namespace SignalR.DataAccessLayer.EntityFramework
 {
     public class EfOrderDal : GenericRepository<Order>, IOrderDal
     {
-        public EfOrderDal(SignalRContext context) : base(context)
+        private readonly SignalRContext _signalRcontext;
+
+        public EfOrderDal(SignalRContext context, SignalRContext signalRcontext) : base(context)
         {
+            _signalRcontext = signalRcontext;
         }
 
         public int ActiveOrderCount()
         {
-            using var context = new SignalRContext();
-            return context.Orders.Count(o => o.Description == "MÜŞTERİ MASADA");
+            return _signalRcontext.Orders.Count(o => o.Description == "MÜŞTERİ MASADA");
         }
 
         public decimal LastOrderPrice()
         {
-            using var context = new SignalRContext();
-            return context.Orders.Take(1).OrderByDescending(o => o.OrderID).Select(o => o.TotalPrice).FirstOrDefault();
+
+            return _signalRcontext.Orders.Take(1).OrderByDescending(o => o.OrderID).Select(o => o.TotalPrice).FirstOrDefault();
         }
 
         public int PassiveOrderCount()
         {
-            using var context = new SignalRContext();
-            return context.Orders.Count(o => o.Description != "MÜŞTERİ MASADA");
+
+            return _signalRcontext.Orders.Count(o => o.Description != "MÜŞTERİ MASADA");
         }
 
         public decimal TodayTotalPrice()
         {
-            using var context = new SignalRContext();
-
             var start = DateTime.Today;              // Bugün 00:00:00
             var end = start.AddDays(1);              // Yarın 00:00:00
 
-            return context.Orders
+            return _signalRcontext.Orders
                 .Where(o => o.Date >= start && o.Date < end)
                 .Sum(o => o.TotalPrice);
         }
 
         public int TotalOrderCount()
         {
-            using var context = new SignalRContext();
-            return context.Orders.Count();
+
+            return _signalRcontext.Orders.Count();
         }
     }
 }

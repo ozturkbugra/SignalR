@@ -13,63 +13,66 @@ namespace SignalR.DataAccessLayer.EntityFramework
 {
     public class EfProductDal : GenericRepository<Product>, IProductDal
     {
-        public EfProductDal(SignalRContext context) : base(context)
+        private readonly SignalRContext _signalRcontext;
+
+        public EfProductDal(SignalRContext context, SignalRContext signalRcontext) : base(context)
         {
+            _signalRcontext = signalRcontext;
         }
 
         public decimal AvgPriceByCorba()
         {
-            using var context = new SignalRContext();
-            return context.Products.Where(p => p.Category.CategoryName == "Çorba").Average(p => p.Price);
+
+            return _signalRcontext.Products.Where(p => p.Category.CategoryName == "Çorba").Average(p => p.Price);
         }
 
         public List<Product> GetProductsWithCategories()
         {
-            using var context = new SignalRContext();
-            var values = context.Products.Include(x => x.Category).ToList();
+
+            var values = _signalRcontext.Products.Include(x => x.Category).ToList();
             return values;
         }
 
         public int ProductCount()
         {
-            using var context = new SignalRContext();
-            return context.Products.Count();
+
+            return _signalRcontext.Products.Count();
         }
 
         public int ProductCountByCategoryNameCorba()
         {
-            using var context = new SignalRContext();
 
-            return context.Products.Count(p => p.Category.CategoryName == "Çorba");
+
+            return _signalRcontext.Products.Count(p => p.Category.CategoryName == "Çorba");
 
         }
 
         public int ProductCountByCategoryNameTatli()
         {
-            using var context = new SignalRContext();
 
-            return context.Products.Count(p => p.Category.CategoryName == "Tatlı");
+
+            return _signalRcontext.Products.Count(p => p.Category.CategoryName == "Tatlı");
         }
 
         public string ProductNameByMaxPrice()
         {
-            using var context = new SignalRContext();
-            var maxPrice = context.Products.Where(x=> x.Price == context.Products.Max(p => p.Price)).FirstOrDefault();
+
+            var maxPrice = _signalRcontext.Products.Where(x=> x.Price == _signalRcontext.Products.Max(p => p.Price)).FirstOrDefault();
             return maxPrice.ProductName;
 
         }
 
         public string ProductNameByMinPrice()
         {
-            using var context = new SignalRContext();
-            var minPrice = context.Products.Where(x => x.Price == context.Products.Min(p => p.Price)).FirstOrDefault();
+
+            var minPrice = _signalRcontext.Products.Where(x => x.Price == _signalRcontext.Products.Min(p => p.Price)).FirstOrDefault();
             return minPrice.ProductName;
         }
 
         public decimal ProductPriceAvg()
         {
-            using var context = new SignalRContext();
-            return context.Products.Average(p => p.Price);
+
+            return _signalRcontext.Products.Average(p => p.Price);
         }
     }
 }

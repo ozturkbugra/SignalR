@@ -7,14 +7,16 @@ namespace SignalR.DataAccessLayer.EntityFramework
 {
     public class EfMoneyCaseDal : GenericRepository<MoneyCase>, IMoneyCaseDal
     {
-        public EfMoneyCaseDal(SignalRContext context) : base(context)
+        private readonly SignalRContext _signalRcontext;
+
+        public EfMoneyCaseDal(SignalRContext context, SignalRContext signalRcontext) : base(context)
         {
+            _signalRcontext = signalRcontext;
         }
 
         public decimal TotalMoneyCaseAmount()
         {
-           using var context = new SignalRContext();
-           return context.MoneyCases.Select(x=> x.TotalAmount).FirstOrDefault();
+           return _signalRcontext.MoneyCases.Select(x=> x.TotalAmount).FirstOrDefault();
         }
     }
 }

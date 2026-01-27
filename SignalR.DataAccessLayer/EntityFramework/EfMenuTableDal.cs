@@ -7,15 +7,16 @@ namespace SignalR.DataAccessLayer.EntityFramework
 {
     public class EfMenuTableDal : GenericRepository<MenuTable>, IMenuTableDal
     {
-        public EfMenuTableDal(SignalRContext context) : base(context)
+        private readonly SignalRContext _signalRcontext;
+
+        public EfMenuTableDal(SignalRContext context, SignalRContext signalRcontext) : base(context)
         {
+            _signalRcontext = signalRcontext;
         }
 
         public int MenuTableCount()
         {
-            using var context = new SignalRContext();
-
-            return context.MenuTables.Count();
+            return _signalRcontext.MenuTables.Count();
         }
     }
 }
