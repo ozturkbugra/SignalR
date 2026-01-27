@@ -30,7 +30,7 @@ namespace SignalRWebUI.Controllers
             mimeMessage.Subject = dto.Subject;
 
             SmtpClient client = new SmtpClient();
-            client.Connect("smtp:gmail.com",587,false);
+            client.Connect("smtp.gmail.com",587,false);
             client.Authenticate("ztrk1212@gmail.com", "kjvh qdzf vjwu geya");
             
             client.Send(mimeMessage);
