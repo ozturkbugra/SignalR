@@ -1,0 +1,53 @@
+﻿@model UserEditDto
+@{
+    ViewData["Title"] = "Kullanıcı Bilgi Düzenle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <h4 class="page-title">Kullanıcı Bilgi Düzenle</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Yeni Kategori Girişi</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="1">Adınız</label>
+                                <input asp-for="Name" class="form-control" id="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="2">Soyadınız</label>
+                                <input asp-for="Surname" class="form-control" id="2">
+                            </div>
+                            <div class="form-group">
+                                <label for="2">Kullanıcı Adınız</label>
+                                <input asp-for="Username" class="form-control" id="2">
+                            </div>
+                            <div class="form-group">
+                                <label for="2">Mailiniz</label>
+                                <input asp-for="Mail" class="form-control" id="2">
+                            </div>
+                            <div class="form-group">
+                                <label for="2">Şifreniz</label>
+                                <input type="password" asp-for="Password" class="form-control" id="2">
+                            </div>
+                            <div class="form-group">
+                                <label for="2">Şifrenizi Onaylayın</label>
+                                <input type="password" asp-for="Password" class="form-control" id="2">
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-warning">Güncelle</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
