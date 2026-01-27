@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SignalRWebUI.Dtos.SocialMediaDtos;
 
 namespace SignalRWebUI.Controllers
 {
+    [Authorize]
     public class SocialMediaController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

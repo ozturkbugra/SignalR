@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SignalRWebUI.Dtos.FeatureDtos;
 
 namespace SignalRWebUI.Controllers
 {
+    [Authorize]
     public class FeatureController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
