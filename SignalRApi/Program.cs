@@ -1,5 +1,7 @@
+using FluentValidation;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.BusinessLayer.Concrete;
+using SignalR.BusinessLayer.ValidationRules.BookingRules;
 using SignalR.DataAccessLayer.Abstract;
 using SignalR.DataAccessLayer.Concrete;
 using SignalR.DataAccessLayer.EntityFramework;
@@ -26,6 +28,9 @@ builder.Services.AddAutoMapper(typeof(AboutMapping));
 
 // Database Context
 builder.Services.AddDbContext<SignalRContext>();
+
+// Fluent Validation
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidation>();
 
 // Dependency Injection
 builder.Services.AddScoped<IAboutService, AboutManager>();
