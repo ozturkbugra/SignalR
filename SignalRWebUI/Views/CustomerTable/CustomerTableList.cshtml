@@ -1,4 +1,4 @@
-﻿@model List<ResultProductDto>
+﻿@model List<ResultMenuTableDto>
 
 @{
     Layout = null;
@@ -62,18 +62,28 @@
         @await Component.InvokeAsync("_UILayoutNavbarComponentPartial")
 
     </div>
+ 
+        <div class="container-fluid">
+            <div class="row px-xl-5">
 
-    <div class="container-fluid">
-        <div class="widget">
-            <div class="widget-icon">
-                <i class="fas fa-chair"></i> <!-- Masa ikonu -->
+            
+        @foreach (var item in Model)
+        {
+            <div class="widget">
+                <div class="widget-icon">
+                    <i class="fas fa-chair"></i> <!-- Masa ikonu -->
+                </div>
+                <div class="widget-text">
+                    <h3>@item.Name</h3>
+                    <p>@item.Status</p>
+                </div>
             </div>
-            <div class="widget-text">
-                <h3>Bahçe 01</h3>
-                <p>Dolu</p>
-            </div>
+        }
         </div>
-    </div>
+        </div>
+
+    
+  
 
     @await Component.InvokeAsync("_UILayoutFooterComponentPartial")
 
