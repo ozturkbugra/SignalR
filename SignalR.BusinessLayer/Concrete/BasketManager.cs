@@ -15,11 +15,12 @@ namespace SignalR.BusinessLayer.Concrete
     {
         private readonly IBasketDal _basketDal;
         private readonly IProductService _productService;
-
-        public BasketManager(IBasketDal basketDal, IProductService productService)
+        private readonly IMenuTableService _menuTableService;
+        public BasketManager(IBasketDal basketDal, IProductService productService, IMenuTableService menuTableService)
         {
             _basketDal = basketDal;
             _productService = productService;
+            _menuTableService = menuTableService;
         }
 
         public void TAdd(Basket entity)
@@ -46,6 +47,8 @@ namespace SignalR.BusinessLayer.Concrete
 
                 _basketDal.Add(entity);
             }
+
+            _menuTableService.TChangeMenuTableStatusToTrue(entity.MenuTableID);
         }
 
 

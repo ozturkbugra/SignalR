@@ -47,5 +47,17 @@ namespace SignalR.BusinessLayer.Concrete
         {
             _menuTableDal.Update(entity);
         }
+
+        public void TChangeMenuTableStatusToTrue(int id)
+        {
+            // Önce masayı bul
+            var value = _menuTableDal.GetById(id);
+
+            // Durumunu true yap
+            value.Status = true;
+
+            // Güncelle
+            _menuTableDal.Update(value);
+        }
     }
 }
