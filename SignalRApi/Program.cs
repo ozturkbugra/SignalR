@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using SignalR.BusinessLayer.Abstract;
 using SignalR.BusinessLayer.Concrete;
 using SignalR.BusinessLayer.ValidationRules.BookingRules;
@@ -26,8 +27,12 @@ builder.Services.AddSignalR();
 // AutoMapper Konfigürasyonu
 builder.Services.AddAutoMapper(typeof(AboutMapping));
 
+// Connection String
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 // Database Context
-builder.Services.AddDbContext<SignalRContext>();
+builder.Services.AddDbContext<SignalRContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Fluent Validation
 builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidation>();

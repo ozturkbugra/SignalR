@@ -6,13 +6,9 @@ namespace SignalR.DataAccessLayer.Concrete
 {
     public class SignalRContext : IdentityDbContext<AppUser,AppRole,int>
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public SignalRContext(DbContextOptions<SignalRContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer(
-                "Server=bugra;Database=SignalRDb;Integrated Security=True;TrustServerCertificate=True;"
-            );
         }
-
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<Booking> Bookings { get; set; }

@@ -6,7 +6,6 @@ using SignalRWebUI.Dtos.BasketDtos;
 
 namespace SignalRWebUI.Controllers
 {
-    [Authorize]
     public class BasketController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -16,10 +15,10 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responeMessage = await client.GetAsync("https://localhost:7171/api/Basket/GetBasketByMenuTableNumber/1");
+            var responeMessage = await client.GetAsync("https://localhost:7171/api/Basket/GetBasketByMenuTableNumber/"+ id);
             if (responeMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responeMessage.Content.ReadAsStringAsync();
