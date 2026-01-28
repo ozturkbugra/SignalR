@@ -24,23 +24,22 @@ namespace SignalR.BusinessLayer.Concrete
 
         public void TAdd(Basket entity)
         {
-            int menuTableId = 1;
+            // int menuTableId = 1; // BURAYI SİLİYORUZ, ARTIK SABİT DEĞİL
 
-            
-            var basket = _basketDal.GetBasketByProductAndTable(entity.ProductID, menuTableId);
+            // entity.MenuTableID zaten UI'dan dolu gelecek, onu kullanıyoruz.
+            var basket = _basketDal.GetBasketByProductAndTable(entity.ProductID, entity.MenuTableID);
 
             if (basket != null)
             {
                 basket.Count += 1;
                 basket.TotalPrice = basket.Price * basket.Count;
-
                 _basketDal.Update(basket);
             }
             else
             {
                 var product = _productService.TGetById(entity.ProductID);
 
-                entity.MenuTableID = menuTableId;
+                // entity.MenuTableID = menuTableId; // BURAYI DA SİL, zaten entity'nin içinde var.
                 entity.Count = 1;
                 entity.Price = product.Price;
                 entity.TotalPrice = product.Price;

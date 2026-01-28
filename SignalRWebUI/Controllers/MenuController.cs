@@ -13,8 +13,9 @@ namespace SignalRWebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
+            ViewBag.MenuTableID = id;
             var client = _httpClientFactory.CreateClient();
             var responeMessage = await client.GetAsync("https://localhost:7171/api/Product/ProductListWithCategory");
             if (responeMessage.IsSuccessStatusCode)
