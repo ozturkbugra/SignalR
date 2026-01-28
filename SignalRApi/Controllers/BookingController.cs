@@ -35,22 +35,26 @@ namespace SignalRApi.Controllers
         [HttpPost]
         public IActionResult CreateBooking(CreateBookingDto dto)
         {
-            var validationResult = _createBookingValidator.Validate(dto);
+            var result = _createBookingValidator.Validate(dto);
 
-            if (!validationResult.IsValid)
+            if (!result.IsValid)
             {
-                return BadRequest(validationResult.Errors.Select(x => new
+                return BadRequest(new
                 {
-                    x.PropertyName,
-                    x.ErrorMessage
-                }));
+                    Errors = result.Errors
+                        .GroupBy(x => x.PropertyName)
+                        .ToDictionary(
+                            g => g.Key,
+                            g => g.Select(x => x.ErrorMessage).ToArray()
+                        )
+                });
             }
 
             var values = _mapper.Map<Booking>(dto);
             _bookingService.TAdd(values);
-
             return Ok("Rezervasyon Yapıldı");
         }
+
 
 
 

@@ -23,21 +23,27 @@
         <div class="container">
             <div class="heading_container">
                 <h2>
-                   Rezervasyon Oluştur
+                    Rezervasyon Oluştur
                 </h2>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form method="post" action="/BookATable/CreateBooking">
+                        <form method="post">
                             <div>
                                 <input type="text" class="form-control" placeholder="Adınız Sayadınız" asp-for="Name" />
+                                <span asp-validation-for="Name"></span>
+
                             </div>
                             <div>
                                 <input type="text" class="form-control" placeholder="Telefon Numaranız" asp-for="Phone" />
+                                <span asp-validation-for="Phone"></span>
+
                             </div>
                             <div>
                                 <input type="email" class="form-control" placeholder="Mailiniz" asp-for="Email" />
+                                <span asp-validation-for="Email"></span>
+
                             </div>
                             <div>
                                 <select class="form-control nice-select wide" asp-for="PersonCount">
@@ -57,9 +63,13 @@
                                         5
                                     </option>
                                 </select>
+                                <span asp-validation-for="PersonCount"></span>
+
                             </div>
                             <div>
                                 <input type="date" class="form-control" asp-for="Date">
+                                <span asp-validation-for="Date"></span>
+
                             </div>
                             <div class="btn_box">
                                 <button>
